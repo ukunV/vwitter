@@ -36,17 +36,21 @@ const Vweet = ({ vweetObj, isOwner }) => {
     <div>
       {editing ? (
         <>
-          <from onSubmit={onSubmit}>
-            <input
-              type="text"
-              placeholder="Edit you vweet"
-              value={newVweet}
-              required
-              onChange={onChange}
-            />
-            <input type="submit" value="Update Vweet" />
-          </from>
-          <button onClick={toggleEditing}>Cancel</button>
+          {isOwner && (
+            <>
+              <from onSubmit={onSubmit}>
+                <input
+                  type="text"
+                  placeholder="Edit you vweet"
+                  value={newVweet}
+                  required
+                  onChange={onChange}
+                />
+                <input type="submit" value="Update Vweet" />
+              </from>
+              <button onClick={toggleEditing}>Cancel</button>
+            </>
+          )}
         </>
       ) : (
         <button>
@@ -54,7 +58,7 @@ const Vweet = ({ vweetObj, isOwner }) => {
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Vweet</button>
-              <button>Edit Vweet</button>
+              <button onClick={toggleEditing}>Edit Vweet</button>
             </>
           )}
         </button>
