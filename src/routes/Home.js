@@ -1,3 +1,4 @@
+import Vweet from "components/Vweet";
 import { dbService } from "firebase_inst";
 import React, { useEffect, useState } from "react";
 
@@ -57,9 +58,11 @@ const Home = ({ userObj }) => {
       </form>
       <div key={vweet.id}>
         {vweets.map((vweet) => (
-          <div>
-            <h4>{vweet.text}</h4>
-          </div>
+          <Vweet
+            key={vweet.id}
+            vweetObj={vweet}
+            isOwner={vweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
