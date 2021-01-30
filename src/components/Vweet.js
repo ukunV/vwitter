@@ -1,4 +1,4 @@
-import { dbService } from "firebase_inst";
+import { dbService, storageService } from "firebase_inst";
 import React, { useState } from "react";
 
 const Vweet = ({ vweetObj, isOwner }) => {
@@ -9,6 +9,7 @@ const Vweet = ({ vweetObj, isOwner }) => {
     const ok = window.confirm("Are you sure you want to delete this vweet?");
     if (ok) {
       await dbService.doc(`vweet/${vweetObj.id}`).delete();
+      await storageService.refFromURL(vweetObj.attachmentUrl).delete();
     }
   };
 
@@ -55,6 +56,14 @@ const Vweet = ({ vweetObj, isOwner }) => {
       ) : (
         <button>
           <h4>{vweetObj.text}</h4>
+          {vweetObj.attachmentUrl && (
+            <img
+              alt="vweet_img"
+              src={vweetObj.attachmentUrl}
+              width="50px"
+              height="50px"
+            />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Vweet</button>

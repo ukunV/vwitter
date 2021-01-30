@@ -20,14 +20,13 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {init ? (
         <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
       ) : (
         "Initializing..."
       )}
-      <footer>&copy; {new Date().getFullYear()} Vwitter</footer>
-    </div>
+    </>
   );
 };
 
