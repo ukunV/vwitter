@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 const Home = ({ userObj }) => {
   const [vweet, setVweet] = useState("");
   const [vweets, setVweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   // const getVweets = async () => {
   //   const dbVweets = dbService.collection("vweets").get();
