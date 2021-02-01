@@ -36,25 +36,21 @@ const Vweet = ({ vweetObj, isOwner }) => {
     <div className="vweet">
       {editing ? (
         <>
-          {isOwner && (
-            <>
-              <from onSubmit={onSubmit} className="container nweetEdit">
-                <input
-                  type="text"
-                  placeholder="Edit you vweet"
-                  value={newVweet}
-                  required
-                  autoFocus
-                  onChange={onChange}
-                  className="formInput"
-                />
-                <input type="submit" value="Update Vweet" className="formBtn" />
-              </from>
-              <span onClick={toggleEditing} className="formBtn cancelBtn">
-                Cancel
-              </span>
-            </>
-          )}
+          <from onSubmit={onSubmit} className="container vweetEdit">
+            <input
+              type="text"
+              placeholder="Edit you vweet"
+              value={newVweet}
+              required
+              autoFocus
+              onChange={onChange}
+              className="formInput"
+            />
+            <input type="submit" value="Update Vweet" className="formBtn" />
+          </from>
+          <span onClick={toggleEditing} className="formBtn cancelBtn">
+            Cancel
+          </span>
         </>
       ) : (
         <>
@@ -63,7 +59,7 @@ const Vweet = ({ vweetObj, isOwner }) => {
             <img alt="vweet_img" src={vweetObj.attachmentUrl} />
           )}
           {isOwner && (
-            <div class="vweet_actions">
+            <div class="vweet__actions">
               <span onClick={onDeleteClick}>
                 <FontAwesomeIcon icon={faTrash} />
               </span>
