@@ -1,5 +1,5 @@
-import { authService, dbService } from "firebase_inst";
-import React, { useEffect, useState } from "react";
+import { authService } from "firebase_inst";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Profile = ({ refreshUser, userObj }) => {
@@ -28,32 +28,40 @@ const Profile = ({ refreshUser, userObj }) => {
     }
   };
 
-  const getMyVweets = async () => {
-    const vweets = await dbService
-      .collection("vweets")
-      .where("creatorId", "==", userObj.uid)
-      .orderBy("createdAt")
-      .get();
-    console.log(vweets.docs.map((doc) => doc.data()));
-  };
+  // const getMyVweets = async () => {
+  //   const vweets = await dbService
+  //     .collection("vweets")
+  //     .where("creatorId", "==", userObj.uid)
+  //     .orderBy("createdAt")
+  //     .get();
+  //   console.log(vweets.docs.map((doc) => doc.data()));
+  // };
 
-  useEffect(() => {
-    getMyVweets();
-  }, []);
+  // useEffect(() => {
+  //   getMyVweets();
+  // }, []);
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form onSubmit={onSubmit} className="profileForm">
         <input
           onChange={onChange}
           type="text"
           placeholder="Display name"
           value={newDisplayName}
+          className="formInput"
         />
-        <input type="submit" value="Update Profile" />
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{ marginTop: 10 }}
+        />
       </form>
-      <button onClick={onLogOutClick}>Log Out</button>
-    </>
+      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </span>
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 import { dbService, storageService } from "firebase_inst";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Vweet = ({ vweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -13,13 +15,10 @@ const Vweet = ({ vweetObj, isOwner }) => {
     }
   };
 
-  const toggleEditing = () => {
-    setEditing((prev) => !prev);
-  };
+  const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(vweetObj, newVweet);
     await dbService.doc(`vweet/${vweetObj.id}`).update({
       text: newVweet,
     });
@@ -34,43 +33,46 @@ const Vweet = ({ vweetObj, isOwner }) => {
   };
 
   return (
-    <div>
+    <div className="vweet">
       {editing ? (
         <>
           {isOwner && (
             <>
-              <from onSubmit={onSubmit}>
+              <from onSubmit={onSubmit} className="container nweetEdit">
                 <input
                   type="text"
                   placeholder="Edit you vweet"
                   value={newVweet}
                   required
+                  autoFocus
                   onChange={onChange}
+                  className="formInput"
                 />
-                <input type="submit" value="Update Vweet" />
+                <input type="submit" value="Update Vweet" className="formBtn" />
               </from>
-              <button onClick={toggleEditing}>Cancel</button>
+              <span onClick={toggleEditing} className="formBtn cancelBtn">
+                Cancel
+              </span>
             </>
           )}
         </>
       ) : (
-        <button>
+        <>
           <h4>{vweetObj.text}</h4>
           {vweetObj.attachmentUrl && (
-            <img
-              alt="vweet_img"
-              src={vweetObj.attachmentUrl}
-              width="50px"
-              height="50px"
-            />
+            <img alt="vweet_img" src={vweetObj.attachmentUrl} />
           )}
           {isOwner && (
-            <>
-              <button onClick={onDeleteClick}>Delete Vweet</button>
-              <button onClick={toggleEditing}>Edit Vweet</button>
-            </>
+            <div class="vweet_actions">
+              <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+              <span onClick={toggleEditing}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
           )}
-        </button>
+        </>
       )}
     </div>
   );
