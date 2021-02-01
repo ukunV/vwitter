@@ -10,7 +10,7 @@ const Vweet = ({ vweetObj, isOwner }) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this vweet?");
     if (ok) {
-      await dbService.doc(`vweet/${vweetObj.id}`).delete();
+      await dbService.doc(`vweets/${vweetObj.id}`).delete();
       await storageService.refFromURL(vweetObj.attachmentUrl).delete();
     }
   };
@@ -59,7 +59,7 @@ const Vweet = ({ vweetObj, isOwner }) => {
             <img alt="vweet_img" src={vweetObj.attachmentUrl} />
           )}
           {isOwner && (
-            <div class="vweet__actions">
+            <div className="vweet__actions">
               <span onClick={onDeleteClick}>
                 <FontAwesomeIcon icon={faTrash} />
               </span>
